@@ -8,7 +8,7 @@ class ArticleModel {
   late String content;
   late String urlToImage;
   ArticleModel({
-    required this.author,
+    this.author = "",
     required this.title,
     required this.description,
     required this.url,
