@@ -4,6 +4,7 @@ import 'package:news/data/data.dart';
 import 'package:news/data/news.dart';
 import 'package:news/models/ArticleModel.dart';
 import 'package:news/models/catModel.dart';
+import 'package:news/view/homeNext.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -78,7 +79,8 @@ class _HomeState extends State<Home> {
                     return BlogTile(
                         imgURL: artNews[index].urlToImage,
                         title: artNews[index].title,
-                        desc: artNews[index].description);
+                        desc: artNews[index].description,
+                        url: artNews[index].url);
                   },
                 ),
               ),
@@ -138,21 +140,57 @@ class catCard extends StatelessWidget {
 }
 
 class BlogTile extends StatelessWidget {
-  final String imgURL, title, desc;
+  final String imgURL, title, desc, url;
 
   const BlogTile(
-      {Key? key, required this.imgURL, required this.title, required this.desc})
+      {Key? key,
+      required this.imgURL,
+      required this.title,
+      required this.desc,
+      required this.url})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        children: [
-          Image.network(imgURL),
-          Text(title),
-          Text(desc),
-        ],
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => homeNext(
+                      blogURL: url,
+                    )));
+      },
+      child: Container(
+        margin: EdgeInsets.only(bottom: 18),
+        child: Padding(
+          padding: const EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
+          child: Column(
+            children: [
+              ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Image.network(imgURL)),
+              Text(
+                title,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+              SizedBox(
+                height: 5,
+              ),
+              Text(
+                desc,
+                style: TextStyle(
+                  fontSize: 18,
+                  color: Colors.black54,
+                  fontWeight: FontWeight.w300,
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
