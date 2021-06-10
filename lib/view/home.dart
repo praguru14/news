@@ -33,59 +33,61 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true, //wont center
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Text(
-              "Crypto",
-              style: TextStyle(color: Colors.blue),
-            ),
-            Text("World"),
-          ],
-        ),
-        elevation: 1.0,
-      ),
-      body: SingleChildScrollView(
-        child: Container(
-          child: Column(
+    return Expanded(
+      child: Scaffold(
+        appBar: AppBar(
+          centerTitle: true, //wont center
+          title: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Coloumn for Categories showing them horizontally
-              Container(
-                height: 65,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  shrinkWrap: true,
-                  itemCount: category.length,
-                  itemBuilder: (context, index) {
-                    return catCard(
-                      imgUrl: category[index].imgUrl,
-                      catName: category[index].catName,
-                    );
-                  }, //itemBuilder
-                ),
+              Text(
+                "Crypto",
+                style: TextStyle(color: Colors.blue),
               ),
-
-              //BLOG
-              Container(
-                child: ListView.builder(
-                  padding: EdgeInsets.only(top: 16),
-                  physics: ClampingScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: artNews.length,
-                  itemBuilder: (context, index) {
-                    return BlogTile(
-                        imgURL: artNews[index].urlToImage,
-                        title: artNews[index].title,
-                        desc: artNews[index].description,
-                        url: artNews[index].url);
-                  },
-                ),
-              ),
+              Text("World"),
             ],
-            //blogs
+          ),
+          elevation: 1.0,
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            child: Column(
+              children: [
+                // Coloumn for Categories showing them horizontally
+                Container(
+                  height: 65,
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: category.length,
+                    itemBuilder: (context, index) {
+                      return catCard(
+                        imgUrl: category[index].imgUrl,
+                        catName: category[index].catName,
+                      );
+                    }, //itemBuilder
+                  ),
+                ),
+
+                //BLOG
+                Container(
+                  child: ListView.builder(
+                    padding: EdgeInsets.only(top: 16),
+                    physics: ClampingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemCount: artNews.length,
+                    itemBuilder: (context, index) {
+                      return BlogTile(
+                          imgURL: artNews[index].urlToImage,
+                          title: artNews[index].title,
+                          desc: artNews[index].description,
+                          url: artNews[index].url);
+                    },
+                  ),
+                ),
+              ],
+              //blogs
+            ),
           ),
         ),
       ),
@@ -100,39 +102,41 @@ class catCard extends StatelessWidget {
   const catCard({Key? key, this.imgUrl, this.catName}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {},
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 6.0),
-        margin: EdgeInsets.only(right: 6.0),
-        child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: CachedNetworkImage(
-                imageUrl: imgUrl,
-                width: 120,
-                height: 80,
-                fit: BoxFit.cover,
-              ),
-            ),
-            Container(
-              alignment: Alignment.center,
-              width: 120,
-              height: 60,
-              decoration: BoxDecoration(
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {},
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 6.0),
+          margin: EdgeInsets.only(right: 6.0),
+          child: Stack(
+            children: [
+              ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                color: Colors.black26,
+                child: CachedNetworkImage(
+                  imageUrl: imgUrl,
+                  width: 120,
+                  height: 80,
+                  fit: BoxFit.cover,
+                ),
               ),
-              child: Text(
-                catName,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.w500,
-                    fontSize: 14),
+              Container(
+                alignment: Alignment.center,
+                width: 120,
+                height: 60,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.black26,
+                ),
+                child: Text(
+                  catName,
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 14),
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -152,43 +156,45 @@ class BlogTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => homeNext(
-                      blogURL: url,
-                    )));
-      },
-      child: Container(
-        margin: EdgeInsets.only(bottom: 18),
-        child: Padding(
-          padding: const EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
-          child: Column(
-            children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(16),
-                  child: Image.network(imgURL)),
-              Text(
-                title,
-                style: TextStyle(
-                  fontSize: 22,
-                  fontWeight: FontWeight.w700,
+    return Expanded(
+      child: GestureDetector(
+        onTap: () {
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => homeNext(
+                        blogURL: url,
+                      )));
+        },
+        child: Container(
+          margin: EdgeInsets.only(bottom: 18),
+          child: Padding(
+            padding: const EdgeInsets.only(left: 8.0, top: 8.0, right: 8.0),
+            child: Column(
+              children: [
+                ClipRRect(
+                    borderRadius: BorderRadius.circular(16),
+                    child: Image.network(imgURL)),
+                Text(
+                  title,
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w700,
+                  ),
                 ),
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Text(
-                desc,
-                style: TextStyle(
-                  fontSize: 18,
-                  color: Colors.black54,
-                  fontWeight: FontWeight.w300,
+                SizedBox(
+                  height: 5,
                 ),
-              ),
-            ],
+                Text(
+                  desc,
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.black54,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
